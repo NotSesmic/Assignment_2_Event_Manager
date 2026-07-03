@@ -45,4 +45,4 @@ stage('Load Image into kind') {
     }
 }
     }
-}
+
