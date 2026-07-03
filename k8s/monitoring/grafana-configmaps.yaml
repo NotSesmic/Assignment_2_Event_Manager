@@ -1,0 +1,48 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: grafana-datasources
+data:
+  graphite.yaml: |
+    apiVersion: 1
+    datasources:
+      - name: Graphite
+        type: graphite
+        access: proxy
+        url: http://graphite:80
+        isDefault: true
+        jsonData:
+          graphiteVersion: "1.1"
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: grafana-dashboards
+data:
+  dashboards.yaml: |
+    apiVersion: 1
+    providers:
+      - name: default
+        folder: ""
+        type: file
+        options:
+          path: /etc/grafana/provisioning/dashboards
+  vertex-app-metrics.json: |
+    {
+      "title": "Vertex App Metrics",
+      "timezone": "browser",
+      "schemaVersion": 39,
+      "refresh": "10s",
+      "panels": [
+        { "id": 1, "title": "JVM Memory Used", "type": "timeseries", "gridPos": { "h": 8, "w": 12, "x": 0, "y": 0 },
+          "targets": [{ "target": "aliasByNode(symposium.jvm.memory.used.*, -1)" }] },
+        { "id": 2, "title": "Process CPU Usage", "type": "timeseries", "gridPos": { "h": 8, "w": 12, "x": 12, "y": 0 },
+          "targets": [{ "target": "symposium.process.cpu.usage" }] },
+        { "id": 3, "title": "Disk Free Space", "type": "timeseries", "gridPos": { "h": 8, "w": 12, "x": 0, "y": 8 },
+          "targets": [{ "target": "symposium.disk.free" }] },
+        { "id": 4, "title": "HTTP Requests", "type": "timeseries", "gridPos": { "h": 8, "w": 12, "x": 12, "y": 8 },
+          "targets": [{ "target": "aliasByNode(symposium.http.server.requests.count.*, -1)" }] },
+        { "id": 5, "title": "Uptime", "type": "stat", "gridPos": { "h": 6, "w": 12, "x": 0, "y": 16 },
+          "targets": [{ "target": "symposium.process.uptime" }] }
+      ]
+    }

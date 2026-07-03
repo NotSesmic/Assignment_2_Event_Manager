@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nagios
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nagios
+  template:
+    metadata:
+      labels:
+        app: nagios
+    spec:
+      containers:
+        - name: nagios
+          image: jasonrivers/nagios:latest
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - name: nagios-config
+              mountPath: /opt/nagios/etc/conf.d
+      volumes:
+        - name: nagios-config
+          configMap:
+            name: nagios-config
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nagios
+spec:
+  type: NodePort
+  selector:
+    app: nagios
+  ports:
+    - port: 80
+      targetPort: 80
+      nodePort: 30082

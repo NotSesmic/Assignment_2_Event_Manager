@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nagios-config
+data:
+  hosts.cfg: |
+    define host {
+        use             linux-server
+        host_name       vertex-symposium
+        address         vertex-symposium
+        check_command   check-host-alive
+        max_check_attempts 3
+    }
+  services.cfg: |
+    define service {
+        use                 generic-service
+        host_name           vertex-symposium
+        service_description App HTTP health
+        check_command       check_http_health!9090!/actuator/health
+        check_interval      1
+        retry_interval      1
+    }
+  commands.cfg: |
+    define command {
+        command_name    check_http_health
+        command_line    $USER1$/check_http -H $HOSTADDRESS$ -p $ARG1$ -u $ARG2$ -e 200
+    }
