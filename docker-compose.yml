@@ -26,10 +26,11 @@ services:
       - "8082:80"
     volumes:
       - ./nagios/objects:/opt/nagios/etc/objects/vertex
+      - ./nagios/objects:/opt/nagios/etc/conf.d
     networks:
       - default
-      - kind   # lets Nagios reach the kind node's NodePort
+      - kind # lets Nagios reach the kind node's NodePort
 
 networks:
   kind:
-    external: true   # created automatically by `kind create cluster`
+    external: true # created automatically by `kind create cluster`
