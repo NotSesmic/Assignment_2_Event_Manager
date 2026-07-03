@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vertex-symposium
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: vertex-symposium
+  template:
+    metadata:
+      labels:
+        app: vertex-symposium
+    spec:
+      containers:
+        - name: vertex-symposium
+          image: vertex-symposium:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 4000
+            - containerPort: 9090

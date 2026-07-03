@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register — Vertex</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header class="site">
+    <div class="wrap">
+      <span class="brand">Vertex</span>
+      <nav>
+        <a href="/index.html">Home</a>
+        <a href="/schedule.html">Schedule</a>
+        <a href="/speakers.html">Speakers</a>
+        <a href="/register.html" class="active">Register</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="wrap" style="padding: 3rem 0; max-width: 560px;">
+    <p class="eyebrow">Sign up</p>
+    <h1>Register</h1>
+
+    <form id="reg-form">
+      <label for="name">Full name</label>
+      <input class="field" id="name" name="name" required>
+
+      <label for="email">Email</label>
+      <input class="field" id="email" name="email" type="email" required>
+
+      <label for="college">College / Institution</label>
+      <input class="field" id="college" name="college">
+
+      <label for="eventName">Session</label>
+      <select class="field" id="eventName" name="eventName" required>
+        <option value="" disabled selected>Choose a session</option>
+        <option value="Opening Keynote: The Next Decade of Systems">K-01 — Opening Keynote: The Next Decade of Systems</option>
+        <option value="Container Orchestration at Scale">T-101 — Container Orchestration at Scale</option>
+        <option value="Hands-on: CI/CD Pipelines with Jenkins">W-201 — Hands-on: CI/CD Pipelines with Jenkins</option>
+        <option value="Observability: Metrics, Logs, and Traces">T-102 — Observability: Metrics, Logs, and Traces</option>
+        <option value="Keynote: Distributed Systems in Practice">K-02 — Keynote: Distributed Systems in Practice</option>
+        <option value="Panel: Careers in Platform Engineering">P-301 — Panel: Careers in Platform Engineering</option>
+        <option value="High Availability Architectures">T-103 — High Availability Architectures</option>
+        <option value="Hands-on: Kubernetes Fundamentals">W-202 — Hands-on: Kubernetes Fundamentals</option>
+      </select>
+
+      <label for="phone">Phone (optional)</label>
+      <input class="field" id="phone" name="phone">
+
+      <button class="btn" type="submit" style="margin-top: 1.8rem;">Submit registration</button>
+      <p id="status"></p>
+    </form>
+  </div>
+
+  <footer class="site">
+    <span>VERTEX — ANNUAL TECHNICAL SYMPOSIUM</span>
+    <span>ORGANIZED BY THE COMPUTER SCIENCE DEPARTMENT</span>
+  </footer>
+
+  <script src="/js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+version: "3.8"
+
+services:
+  graphite:
+    image: graphiteapp/graphite-statsd
+    container_name: graphite
+    ports:
+      - "8081:80"
+      - "2003:2003"
+      - "8125:8125/udp"
+
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./grafana/provisioning:/etc/grafana/provisioning
+    depends_on:
+      - graphite
+
+  nagios:
+    image: jasonrivers/nagios:latest
+    container_name: nagios
+    ports:
+      - "8082:80"
+    volumes:
+      - ./nagios/objects:/opt/nagios/etc/objects/vertex
+    networks:
+      - default
+      - kind   # lets Nagios reach the kind node's NodePort
+
+networks:
+  kind:
+    external: true   # created automatically by `kind create cluster`
