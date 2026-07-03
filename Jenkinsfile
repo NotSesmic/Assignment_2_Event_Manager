@@ -32,11 +32,12 @@ pipeline {
 
         // Add a Docker Push stage here once you have a registry (Docker Hub, ECR, etc.)
 
-        stage('Deploy to Kubernetes') {
-            steps {
-                sh 'kubectl apply -f k8s/deployment.yaml -f k8s/service.yaml'
-                sh 'kubectl rollout restart deployment vertex-symposium'
-            }
-        }
+stage('Deploy to Kubernetes') {
+    steps {
+        // Apply the monitoring infrastructure alongside your app
+        sh 'kubectl apply -f k8s/monitoring/ -f k8s/deployment.yaml -f k8s/service.yaml'
+        sh 'kubectl rollout restart deployment vertex-symposium'
+    }
+}
     }
 }
